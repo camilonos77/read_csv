@@ -2,3 +2,4 @@ destino_archivos/*
 *.txt
 *.csv
 .~lock.*
+.~lock.archivo_origen.csv#
