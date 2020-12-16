@@ -1,3 +1,4 @@
 destino_archivos/*
 *.txt
 *.csv
+.~lock.*
