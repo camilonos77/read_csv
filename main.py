@@ -22,15 +22,23 @@ DELIMITADOR_ARCHIVO = ";"
 LISTA_ERRORES = []
 
 
-def check_date_format(fecha_origen):
+def check_date_format(fecha_origen_file):
 
-    if fecha_origen is not None:
+    if fecha_origen_file is not None:
 
         try:
-            datetime.strptime(fecha_origen.strip(), '%d/%m/%Y')    
-            fecha_origen = fecha_origen.strip()
+            datetime.strptime(fecha_origen_file.strip(), '%d/%m/%Y')    
+            fecha_origen = fecha_origen_file.strip()
             return {"status": True, "date": fecha_origen}
         except ValueError:
+            
+            try:
+                datetime.strptime(fecha_origen_file.strip(), '%d/%m/%Y %I:%M:%S %p')    
+                fecha_origen = fecha_origen_file.strip()
+                return {"status": True, "date": fecha_origen}
+            except ValueError:
+                return {"status": False, "date": None}
+            
             return {"status": False, "date": None}
     else:
         return {"status": False, "date": None}
@@ -47,7 +55,7 @@ def read_file_csv():
             if contador_lineas > 0:
                 nuevo_array_fila = []
                 nuevo_array_fila = fila_archivo
-                if len(fila_archivo) > 3:
+                if len(fila_archivo) > 4:
                     
                     valiacion_fecha = check_date_format(fila_archivo[2])
                     nueva_fecha = ""
@@ -65,6 +73,7 @@ def read_file_csv():
                     
 
             
+
             contador_lineas = contador_lineas + 1
 
         
